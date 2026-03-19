@@ -18,9 +18,8 @@ def main():
     register_save_beh_results(results=results_beh, part_id=part_id, timestamp=session_time)
 
     config = load_config()
-    mon = create_monitor(config)
     win = visual.Window(fullscr=True,
-                        monitor=mon,
+                        monitor=create_monitor(config),
                         units='pix',
                         screen=0,
                         color=config["screen_color"])
