@@ -1,0 +1,26 @@
+# --- Monitor Settings ---
+monitor_name: "defaultMonitor"     # Name of the monitor profile in PsychoPy
+monitor_width: 53.0                # Physical width of the screen in cm
+monitor_distance: 60.0             # Distance from the participant to the screen in cm
+
+# --- Window Settings ---
+screen_color: "black"              # Background color of the experiment window
+
+# --- Fixation Cross ---
+fixation_color: "white"            # Color of the fixation stimulus
+fixation_text: "+"                 # Character used for fixation
+fixation_size: 40                  # Height in pixels (since units='pix' in main.py)
+
+# --- Feedback Settings ---
+feedback_text:
+  true: "Correct!"                 # Message for accurate response
+  false: "Error!"                  # Message for inaccurate response
+feedback_color: "white"            # Color of the feedback text
+feedback_size: 24                  # Height of the feedback text in pixels
+feedback_time: 1                   # Duration of feedback display in seconds
+
+# --- Instruction Settings ---
+instruction_color: "white"         # Default color for instruction text
+instruction_text_size: 24          # Default height for instruction text
+instruction_wrap_width: 800        # Maximum line width before wrapping in pixels
+instruction_font: 'Segoe UI Emoji' # Font name of the displayed text
