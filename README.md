@@ -1,30 +1,35 @@
 # PsychoPy Template
 
-A robust, modular boilerplate for building psychological experiments in PsychoPy. This skeleton provides a standardized structure for session management, hardware configuration, and data logging, allowing you to focus on the core logic of your experiment.
+A modular boilerplate for building psychological experiments in PsychoPy. The project is designed to separate **reusable experiment infrastructure** from **procedure-specific code**, so you can focus on implementing the logic of a new study without rewriting the same setup code each time.
 
 ## Key Features
 
-- **YAML-based Configuration**: Manage all experiment parameters (colors, timings, keys) in a single `config.yaml` file.
-- **Automated Session Management**: Integrated participant info dialogs and shared timestamps for all output files.
-- **Robust Logging**: Automatic logging of session events, monitor parameters, and full configuration content for perfect reproducibility.
-- **Monitor & Hardware Setup**: Automatic screen resolution detection and easy custom monitor profile configuration.
-- **Safe Exit Handling**: Global `F7` emergency exit that ensures data is saved even if the experiment is interrupted.
-- **Instruction Helpers**: Flexible functions to present text, images, or numbered sequences of instructions.
-- **Data Export**: Automatic CSV saving of behavioral results with error handling.
+- **YAML-based Configuration**: Store experiment parameters in `config.yaml`.
+- **Automated Session Setup**: Built-in participant info dialog and shared timestamping for output files.
+- **Robust Logging**: Automatic session logging, including monitor parameters and full configuration content.
+- **Monitor & Timing Utilities**: Automatic screen resolution detection and optional frame rate validation.
+- **Safe Exit Handling**: Emergency `F7` exit with automatic behavioral data saving on termination.
+- **Instruction Helpers**: Present text, images, or numbered instruction sequences from the `messages/` folder.
+- **BioSemi Trigger Support**: Trigger handling with dummy mode, trigger history, and CSV export of trigger maps.
+- **Modular Architecture**: Shared code lives in `src/`, while experiment-specific logic belongs in `procedure_code/`.
 
 ## Project Structure
 
 ```text
-├── main.py                 # Entry point of the experiment
-├── config.yaml             # Global configuration parameters
-├── messages/               # Folder for instruction files (.txt, .png, etc.)
+├── main.py
+├── config.yaml
+├── README.md
+├── messages/               # Instruction files (.txt, .png, etc.)
 ├── results/                # Output folder for CSV data and logs
-└── src/                    # Source code modules
-    ├── experiment_setup.py # Participant info and logging initialization
-    ├── monitor_setup.py    # Monitor profiles and resolution detection
-    ├── load_data.py        # YAML loading and text file processing
-    ├── exit_handler.py     # Emergency exit and data saving logic
-    └── present_info.py     # Stimulus drawing and instruction screens
+├── src/                    # Reusable modules shared across experiments
+│   ├── experiment_setup.py
+│   ├── monitor_setup.py
+│   ├── load_data.py
+│   ├── exit_handler.py
+│   ├── present_info.py
+│   └── trigger_handler_biosemi.py
+└── procedure_code/         # Experiment-specific code
+    └── triggers_biosemi.py
 ```
 
 ## Getting Started
@@ -48,22 +53,27 @@ A robust, modular boilerplate for building psychological experiments in PsychoPy
 
 ### Usage
 
-1. Modify `config.yaml` to suit your experiment's needs.
-2. Add your instruction files to the `messages/` folder.
-3. Implement your trial logic in `main.py` using the provided helpers.
-4. Run the experiment:
+1. Adjust `config.yaml` for your experiment settings.
+2. Add instruction files to the `messages/` folder.
+3. Implement your procedure-specific logic in `procedure_code/`.
+4. Use `main.py` as the experiment entry point.
+5. Run the experiment:
    ```bash
    python main.py
    ```
 
 ## Core Functions
 
-- `present_sequence()`: Automatically displays `instr_1.txt`, `instr_2.txt`, etc.
-- `check_exit()`: Call this inside your loops to allow the participant to exit via `F7`.
-- `show_feedback()`: Display accuracy-based feedback using dictionary mapping from config.
-- `draw_stim()`: A recursive helper to toggle `autoDraw` for single stimuli, lists, or dictionaries.
+- `load_config()`: Loads YAML configuration and logs its contents.
+- `part_info()`: Collects participant information at session start.
+- `create_monitor()`: Creates a PsychoPy monitor using config values and detected screen resolution.
+- `get_frame_rate()`: Measures and validates display refresh rate.
+- `present_text()`, `present_image()`, `present_sequence()`: Present instruction screens from files.
+- `show_feedback()`: Displays accuracy-based feedback.
+- `check_exit()`: Allows safe termination using `F7`.
+- `register_save_beh_results()`: Saves behavioral results automatically on exit.
+- `TriggerHandler`: Sends BioSemi triggers, stores trigger history, and exports trigger maps to CSV.
 
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-```

@@ -24,3 +24,13 @@ instruction_color: "white"         # Default color for instruction text
 instruction_text_size: 24          # Default height for instruction text
 instruction_wrap_width: 800        # Maximum line width before wrapping in pixels
 instruction_font: 'Segoe UI Emoji' # Font name of the displayed text
+
+# --- Trigger Settings ---
+trigger:
+  dummy_mode: true        # false = wysyłaj sygnały do EEG
+  trigger_time: 0.004     # trigger time in s
+  trigger_limit: 60       # maks trigger value (triggers will be sent in a loop from 1 to trigger_limit)
+  trigger_params:         # extra columns in trigger_map
+    - block_type
+    - acc
+    - trial_type
