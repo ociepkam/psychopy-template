@@ -1,6 +1,5 @@
 from psychopy import logging
 import yaml
-import logging
 import json
 
 
